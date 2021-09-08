@@ -1,9 +1,14 @@
 import { userConstants } from '../constants' 
 
-const authedUser = (state = null, action) => {
+const authedUser = (state = {}, action) => {
     switch (action.type) {
-        case userConstants.SET_AUTHED_USER :
-            return action.payload.id
+        case userConstants.USER_LOGIN_SUCCESS :
+            return {
+                id: action.payload.id,
+                loggedIn: true
+            }
+        case userConstants.USER_LOGOUT :
+            return {}
         default:
             return state
     }
