@@ -1,9 +1,8 @@
-/** Action Types */
-export const RECIEVE_USERS = "RECIEVE_USERS"
+import { userConstants } from '../constants'
 
 /** Action Creators */
 export const recieveUsers = (users) => ({
-    type: RECIEVE_USERS,
+    type: userConstants.RECIEVE_USERS,
     payload: {
         users
     }

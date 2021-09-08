@@ -1,8 +1,8 @@
-import { RECIEVE_USERS } from '../actions/users'
+import { userConstants } from '../constants'
 
-export default (state = {}, action) => {
+const users = (state = {}, action) => {
     switch (action.type) {
-        case RECIEVE_USERS :
+        case userConstants.RECIEVE_USERS :
             return {
                 ...state,
                 ...action.payload.users
@@ -11,3 +11,5 @@ export default (state = {}, action) => {
             return state
     }
 }
+
+export default users

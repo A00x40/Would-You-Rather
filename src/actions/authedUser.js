@@ -1,9 +1,8 @@
-/** Action Types */
-export const SET_AUTHED_USER = "SET_AUTHED_USER"
+import { userConstants } from '../constants'
 
 /** Action Creators */
 export const setAuthedUser = (id) => ({
-    type: SET_AUTHED_USER,
+    type: userConstants.SET_AUTHED_USER,
     payload: {
         id
     }

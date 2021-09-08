@@ -1,10 +1,12 @@
-import { SET_AUTHED_USER } from '../actions/authedUser'
+import { userConstants } from '../constants' 
 
-export default (state = null, action) => {
+const authedUser = (state = null, action) => {
     switch (action.type) {
-        case SET_AUTHED_USER:
+        case userConstants.SET_AUTHED_USER :
             return action.payload.id
         default:
             return state
     }
 }
+
+export default authedUser

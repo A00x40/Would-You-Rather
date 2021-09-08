@@ -1,8 +1,8 @@
-import { RECIEVE_QUESTIONS } from '../actions/questions'
+import { questionsConstants } from '../constants'
 
-export default (state = {}, action) => {
+const questions = (state = {}, action) => {
     switch (action.type) {
-        case RECIEVE_QUESTIONS :
+        case questionsConstants.RECIEVE_QUESTIONS :
             return {
                 ...state,
                 ...action.payload.questions
@@ -11,3 +11,5 @@ export default (state = {}, action) => {
             return state
     }
 }
+
+export default questions
