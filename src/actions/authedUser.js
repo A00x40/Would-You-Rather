@@ -28,7 +28,7 @@ export const handleLogin = (id) => {
                 const questions = await _getQuestions()
                 dispatch(recieveUsers(users))
                 dispatch(recieveQuestions(questions))
-                dispatch(setAuthedUser(user[id]))
+                dispatch(setAuthedUser(user.id))
             }
         } catch(error) {
             alert(error.toString())
