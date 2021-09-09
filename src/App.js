@@ -10,6 +10,7 @@ import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import Poll from './components/Poll/Poll'
 import NewPoll from './components/Poll/NewPoll'
+import Leaderboard from './components/Poll/Leaderboard'
 
 const App = (props) => {
     
@@ -43,7 +44,7 @@ const App = (props) => {
                 <Route exact path='/leaderboard' render={ () => {
                     if(isLoggedIn) 
                         return (
-                            <div>leaderboard</div>
+                            <Leaderboard />
                         )
 
                     alert("Please Login")
