@@ -85,4 +85,18 @@ li {
 .active {
     background-color: rgb(29, 207, 154);
 }
+
+.option li .active:hover {
+    color: black;
+    cursor: revert;
+}
+
+.option li .unactive:hover {
+    color: black;
+    background-color: white;
+    cursor: revert;
+}
+
+
+  
   

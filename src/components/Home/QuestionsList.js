@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { formatDate } from '../../utils/_DATA.js'
 import { answerQuestion } from '../../actions/questions'
 
@@ -8,10 +8,14 @@ const QuestionsList = (props) => {
 
     const { questions, List, users, authedUser } = props
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const changeCategory = (e,id) => {
         e.preventDefault()
-        dispatch(answerQuestion(id, e.target.id, authedUser.id))
+        if(e.target.className !== "unactive" && e.target.className !== "active") {
+            dispatch(answerQuestion(id, e.target.id, authedUser.id))
+            history.push(`/questions/${id}`)
+        }
     }
 
     return (
@@ -36,12 +40,12 @@ const QuestionsList = (props) => {
                                     <div>{formatDate(timestamp)}</div>
                                     <ul className='option'>
                                         <li>
-                                            <label className={ optionOneVoted ? "active" : "" } id="optionOne" onClick={(e) => changeCategory(e,k)}>
+                                            <label className={ optionOneVoted ? "active" : "" - optionTwoVoted ? "unactive" : "" } id="optionOne" onClick={(e) => changeCategory(e,k)}>
                                                 {questions[k].optionOne.text}
                                             </label>
                                         </li>
                                         <li>
-                                            <label className={ optionTwoVoted ? "active" : "" } id="optionTwo" onClick={(e) => changeCategory(e,k)}>
+                                            <label className={ optionTwoVoted ? "active" : "" - optionOneVoted ? "unactive" : "" } id="optionTwo" onClick={(e) => changeCategory(e,k)}>
                                                 {questions[k].optionTwo.text}
                                             </label>
                                         </li>

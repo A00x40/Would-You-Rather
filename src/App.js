@@ -8,6 +8,7 @@ import Navigation from './components/common/Nav'
 import NotFound from './components/common/NotFound'
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
+import Poll from './components/Poll/Poll'
 
 const App = (props) => {
     
@@ -42,6 +43,18 @@ const App = (props) => {
                     if(isLoggedIn) 
                         return (
                             <div>leaderboard</div>
+                        )
+
+                    alert("Please Login")
+                    return (
+                        <Redirect to='/' />
+                    )
+                }} />
+
+                <Route exact path='/questions/:id' render={ (props) => {
+                    if(isLoggedIn) 
+                        return (
+                            <Poll id={props.match.params.id}/>
                         )
 
                     alert("Please Login")
