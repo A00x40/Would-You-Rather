@@ -1,4 +1,5 @@
 import { questionsConstants } from '../constants'
+import { _saveQuestionAnswer, _saveQuestion } from '../utils/_DATA'
 
 /** Action Creators */
 export const recieveQuestions = (questions) => ({
@@ -8,11 +9,34 @@ export const recieveQuestions = (questions) => ({
     }
 })
 
-export const answerQuestion = (id, option, userId) => ({
+export const answerQuestion = (userId, qid, option) => ({
     type: questionsConstants.ANSWER_QUESTION,
     payload: {
-        id,
-        option,
-        userId
+        userId,
+        qid,
+        option
     }
 })
+
+export const handleSaveQuestionAnswer = (authedUser, qid, answer) => {
+    return async (dispatch) => {
+        console.log(authedUser, qid, answer)
+        dispatch(answerQuestion(authedUser, qid, answer))
+        _saveQuestionAnswer({authedUser, qid, answer})
+    }
+}
+
+export const saveQuestion = (question) => ({
+    type: questionsConstants.SAVE_QUESTION,
+    payload: {
+        question
+    }
+})
+
+export const handleSaveQuestion = (optionOneText, optionTwoText, author) => {
+    return async (dispatch) => {
+        _saveQuestion({ optionOneText, optionTwoText, author}).then((formattedQuestion) => {
+            dispatch(saveQuestion(formattedQuestion))
+        })
+    }
+}

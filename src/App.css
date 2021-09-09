@@ -97,6 +97,26 @@ li {
     cursor: revert;
 }
 
+input[type="text"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.form-btn {
+    text-transform: uppercase;
+    margin: 15px auto;
+    padding: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+    background: rgb(44, 184, 86);
+    font-size: 20px;
+    width: 100%;
+}
+
+.form-btn:disabled {
+    cursor: revert;
+    background: white;
+}
 
   
   

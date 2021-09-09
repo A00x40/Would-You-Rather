@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect, useDispatch } from 'react-redux';
 import { formatDate } from '../../utils/_DATA.js'
-import { answerQuestion } from '../../actions/questions'
+import { handleSaveQuestionAnswer } from '../../actions/questions'
 
  
 const Poll = (props) => {
@@ -15,10 +15,10 @@ const Poll = (props) => {
 
     const dispatch = useDispatch()
 
-    const changeCategory = (e,id) => {
+    const changeCategory = (e,qid) => {
         e.preventDefault()
         if(e.target.className !== "unactive" && e.target.className !== "active")
-            dispatch(answerQuestion(id, e.target.id, authedUser.id))
+            dispatch(handleSaveQuestionAnswer( authedUser.id, qid, e.target.id))
     }
 
     return (

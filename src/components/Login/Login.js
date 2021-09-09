@@ -20,7 +20,6 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const { id } = state
-        
         dispatch(handleLogin(id))
     }    
     

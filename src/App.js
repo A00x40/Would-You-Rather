@@ -9,6 +9,7 @@ import NotFound from './components/common/NotFound'
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import Poll from './components/Poll/Poll'
+import NewPoll from './components/Poll/NewPoll'
 
 const App = (props) => {
     
@@ -30,7 +31,7 @@ const App = (props) => {
                 <Route exact path='/add' render={ () => {
                     if(isLoggedIn) 
                         return (
-                            <div>Add</div>
+                            <NewPoll />
                         )
 
                     alert("Please Login")

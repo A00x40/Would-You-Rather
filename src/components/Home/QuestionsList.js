@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { formatDate } from '../../utils/_DATA.js'
-import { answerQuestion } from '../../actions/questions'
+import { handleSaveQuestionAnswer } from '../../actions/questions'
 
 const QuestionsList = (props) => {
 
@@ -10,11 +10,11 @@ const QuestionsList = (props) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const changeCategory = (e,id) => {
+    const changeCategory = (e,qid) => {
         e.preventDefault()
         if(e.target.className !== "unactive" && e.target.className !== "active") {
-            dispatch(answerQuestion(id, e.target.id, authedUser.id))
-            history.push(`/questions/${id}`)
+            dispatch(handleSaveQuestionAnswer( authedUser.id, qid, e.target.id))
+            history.push(`/questions/${qid}`)
         }
     }
 
