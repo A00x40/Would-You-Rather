@@ -7,6 +7,18 @@ const questions = (state = {}, action) => {
                 ...state,
                 ...action.payload.questions
             }
+        case questionsConstants.ANSWER_QUESTION :
+            const { id, option, userId } = action.payload
+            return {
+                ...state,
+                [id] : {
+                    ...state[id] ,
+                    [option]: {
+                        ...state[id][option] ,
+                        votes: state[id][option].votes.concat([userId])
+                    }
+                }
+            }
         default:
             return state
     }

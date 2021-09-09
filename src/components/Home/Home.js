@@ -4,7 +4,7 @@ import QuestionsList from './QuestionsList'
 
 const Home = (props) => {
 
-    const {  users, questions, answered, notAnswered } = props
+    const {  users, authedUser, questions, answered, notAnswered } = props
 
     const [displayAnswered, setdisplayAnswered] = useState({
         display: false
@@ -19,6 +19,7 @@ const Home = (props) => {
     return (
         <div>
             <header className='header1'>
+                <h1>Welcome {users[authedUser.id].name}</h1>
                 <h1>Would You Rather?</h1>
                 <button onClick={handleToggle}> { 
                     !displayAnswered.display
@@ -28,8 +29,18 @@ const Home = (props) => {
             </header>
             {
                 !displayAnswered.display
-                ? <QuestionsList users={users} questions={questions} List={notAnswered}/>
-                : <QuestionsList users={users} questions={questions} List={answered}/>
+                ? (
+                    <div>
+                        <h3 className='center'>UnAnswered</h3>
+                        <QuestionsList authedUser={authedUser} users={users} questions={questions} List={notAnswered}/>
+                    </div>
+                )
+                : (
+                    <div>
+                        <h3 className='center'>Answered</h3>
+                        <QuestionsList authedUser={authedUser} users={users} questions={questions} List={answered}/>
+                    </div>
+                )
             }
         </div>
     )

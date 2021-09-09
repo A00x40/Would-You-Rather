@@ -5,5 +5,6 @@ export const userConstants = {
 }
 
 export const questionsConstants = {
-    RECIEVE_QUESTIONS : "RECIEVE_QUESTIONS"
+    RECIEVE_QUESTIONS : "RECIEVE_QUESTIONS",
+    ANSWER_QUESTION : "ANSWER_QUESTION"
 }

@@ -1,10 +1,19 @@
 import React from 'react'
-//import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/_DATA.js'
+import { answerQuestion } from '../../actions/questions'
 
 const QuestionsList = (props) => {
 
-    const { questions, List, users } = props
+    const { questions, List, users, authedUser } = props
+    const dispatch = useDispatch()
+
+    const changeCategory = (e,id) => {
+        e.preventDefault()
+        dispatch(answerQuestion(id, e.target.id, authedUser.id))
+    }
+
     return (
         <ul>
             {
@@ -12,6 +21,9 @@ const QuestionsList = (props) => {
                     const author = users[questions[k].author]
                     const { timestamp } = questions[k]
 
+                    const optionOneVoted = questions[k].optionOne.votes.includes(authedUser.id)
+                    const optionTwoVoted = questions[k].optionTwo.votes.includes(authedUser.id)
+                    
                     return(
                         <li key={k}>
                             <div className='question'>
@@ -24,14 +36,21 @@ const QuestionsList = (props) => {
                                     <div>{formatDate(timestamp)}</div>
                                     <ul className='option'>
                                         <li>
-                                            <label htmlFor="option-1">{questions[k].optionOne.text}</label>
+                                            <label className={ optionOneVoted ? "active" : "" } id="optionOne" onClick={(e) => changeCategory(e,k)}>
+                                                {questions[k].optionOne.text}
+                                            </label>
                                         </li>
                                         <li>
-                                            <label htmlFor="option-2">{questions[k].optionTwo.text}</label>
+                                            <label className={ optionTwoVoted ? "active" : "" } id="optionTwo" onClick={(e) => changeCategory(e,k)}>
+                                                {questions[k].optionTwo.text}
+                                            </label>
                                         </li>
-                                    </ul>                             
+                                    </ul>  
+                                    <Link to={`/questions/${k}`}>Details</Link>                            
                                 </div>  
-                            </div>                    
+                                
+                            </div>  
+                                             
                         </li>
                     )
                 })

@@ -7,3 +7,12 @@ export const recieveQuestions = (questions) => ({
         questions
     }
 })
+
+export const answerQuestion = (id, option, userId) => ({
+    type: questionsConstants.ANSWER_QUESTION,
+    payload: {
+        id,
+        option,
+        userId
+    }
+})
