@@ -15,8 +15,8 @@ const App = (props) => {
     return (
         <Router>
             <Fragment>
-                <LoadingBar /> 
-                <Navigation />
+                <LoadingBar style={{ backgroundColor: 'red', height: '5px' }} />
+                <Navigation isLoggedIn={isLoggedIn}/>
 
                 <Switch>
 

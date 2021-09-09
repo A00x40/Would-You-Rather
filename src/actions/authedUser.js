@@ -1,6 +1,8 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { userConstants } from '../constants'
-import { _getUsers } from '../utils/_DATA'
+import { _getUsers, _getQuestions } from '../utils/_DATA'
+import { recieveUsers } from '../actions/users'
+import { recieveQuestions }   from '../actions/questions'
 
 /** Action Creators */
 export const setAuthedUser = (id) => ({
@@ -21,11 +23,17 @@ export const handleLogin = (id) => {
         const user = users[id]
 
         try {
-            dispatch(setAuthedUser(user.id))
+            // Will give error if id doesn't exist
+            if(user.id) {
+                const questions = await _getQuestions()
+                dispatch(recieveUsers(users))
+                dispatch(recieveQuestions(questions))
+                dispatch(setAuthedUser(user[id]))
+            }
         } catch(error) {
             alert(error.toString())
         }
             
-        dispatch(hideLoading())
+        dispatch(hideLoading()) 
     }
 }
