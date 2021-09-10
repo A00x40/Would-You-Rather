@@ -12,6 +12,21 @@ import Poll from './components/Poll/Poll'
 import NewPoll from './components/Poll/NewPoll'
 import Leaderboard from './components/Poll/Leaderboard'
 
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+    if(rest.isLoggedIn)
+        return (
+            <Route {...rest} render={
+                props => <Component {...rest} {...props} />
+            } />
+        )
+    else {
+        alert('Please Login First')
+        return (
+            <Redirect to='/'/>
+        )
+    }
+}
+
 const App = (props) => {
     
     const { isLoggedIn } = props
@@ -22,51 +37,18 @@ const App = (props) => {
                 <Navigation isLoggedIn={isLoggedIn}/>
 
                 <Switch>
+                    <Route exact path='/' render={ (props) =>
+                        !isLoggedIn 
+                        ? <Login location={props.location}/>
+                        : <Home  location={props.location}/>
+                    } />
 
-                <Route exact path='/' render={ () =>
-                    !isLoggedIn 
-                    ? <Login />
-                    : <Home />
-                } />
-
-                <Route exact path='/add' render={ () => {
-                    if(isLoggedIn) 
-                        return (
-                            <NewPoll />
-                        )
-
-                    alert("Please Login")
-                    return (
-                        <Redirect to='/' />
-                    )
-                }} />
-
-                <Route exact path='/leaderboard' render={ () => {
-                    if(isLoggedIn) 
-                        return (
-                            <Leaderboard />
-                        )
-
-                    alert("Please Login")
-                    return (
-                        <Redirect to='/' />
-                    )
-                }} />
-
-                <Route exact path='/questions/:id' render={ (props) => {
-                    if(isLoggedIn) 
-                        return (
-                            <Poll id={props.match.params.id}/>
-                        )
-
-                    alert("Please Login")
-                    return (
-                        <Redirect to='/' />
-                    )
-                }} />
-
-                <Route path='*' component={NotFound} />
-
+                    <ProtectedRoute exact path='/add' component={NewPoll} location={props.location} isLoggedIn={isLoggedIn}/>
+                    <ProtectedRoute exact path='/leaderboard' component={Leaderboard} location={props.location} isLoggedIn={isLoggedIn}/>
+                    <ProtectedRoute exact path='/questions/:id' component={Poll} location={props.location} isLoggedIn={isLoggedIn}/>
+                    
+                    <Route exact path='/notfound' component={NotFound} />
+                    <Route path='*' component={NotFound} />
                 </Switch>
 
             </Fragment>

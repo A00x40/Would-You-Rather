@@ -1,9 +1,22 @@
 import React from 'react'
-import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
+import { connect, useDispatch } from 'react-redux'
+import { handleLogout } from '../../actions/authedUser'
  
 const Leaderboard = (props) => {
 
-    const { users, usersIds } = props
+    const { users, usersIds, location } = props
+    const dispatch = useDispatch()
+
+    if(location.state === undefined) {
+        dispatch(handleLogout()) 
+        return  (
+            <Redirect to={{
+                pathname: '/',
+                state: { from: `/leaderboard` }
+            }} />
+        )
+    }
   
     return (
         <div>

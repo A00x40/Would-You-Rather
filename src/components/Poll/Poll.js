@@ -1,19 +1,36 @@
 import React from 'react'
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { formatDate } from '../../utils/_DATA.js'
+import { handleLogout } from '../../actions/authedUser.js'
 import { handleSaveQuestionAnswer } from '../../actions/questions'
-
  
 const Poll = (props) => {
 
-    const { users, question, authedUser, id } = props
+    const { users, question, authedUser, id, location } = props
+    const dispatch = useDispatch()
+    
+    if(question === undefined) {
+        if(location.state === undefined) {
+            dispatch(handleLogout()) 
+            return  (
+                <Redirect to={{
+                    pathname: '/',
+                    state: { from: `/questions/${id}` }
+                }} />
+            )
+        }
+        else {
+            return  (
+                <Redirect to='/notfound' />
+            )
+        }
+    }
 
     const author = users[question.author]
     const { timestamp } = question
     const optionOneVoted = question.optionOne.votes.includes(authedUser.id)
     const optionTwoVoted = question.optionTwo.votes.includes(authedUser.id)
-
-    const dispatch = useDispatch()
 
     const changeCategory = (e,qid) => {
         e.preventDefault()
@@ -57,10 +74,12 @@ const Poll = (props) => {
     );
 }
 
-const mapStateToProps = ({ users, questions, authedUser } , {id}) => {
+const mapStateToProps = ({ users, questions, authedUser } , { match }) => {
+    const id = match.params.id
     return {
         users,
         question: questions[id], 
+        id,
         authedUser
     }
 }

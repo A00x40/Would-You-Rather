@@ -16,7 +16,7 @@ export const handleLogout = () => ({
     type: userConstants.USER_LOGOUT
 })
 
-export const handleLogin = (id) => {
+export const handleLogin = (id, location) => {
     return async (dispatch) => {
         dispatch(showLoading())
         const users = await _getUsers()
@@ -25,9 +25,14 @@ export const handleLogin = (id) => {
         try {
             // Will give error if id doesn't exist
             if(user.id) {
-                const questions = await _getQuestions()
-                dispatch(recieveUsers(users))
-                dispatch(recieveQuestions(questions))
+
+                // Check to not overwrite state with initial database
+                if(location.state === undefined) {
+                    const questions = await _getQuestions()
+                    dispatch(recieveUsers(users))
+                    dispatch(recieveQuestions(questions))
+                }
+                
                 dispatch(setAuthedUser(user.id))
             }
         } catch(error) {

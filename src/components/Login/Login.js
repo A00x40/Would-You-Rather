@@ -4,8 +4,7 @@ import { handleLogin } from '../../actions/authedUser'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const Login = () => {
-
+const Login = (props) => {
     const dispatch = useDispatch()
 
     const [state, setstate] = useState({
@@ -20,7 +19,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const { id } = state
-        dispatch(handleLogin(id))
+        dispatch(handleLogin(id, props.location))
     }    
     
     const { id } = state

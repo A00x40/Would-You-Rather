@@ -26,7 +26,11 @@ const Navigation = (props) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/leaderboard">Leaderboard</Nav.Link>
+                        <Nav.Link as={Link} to={{
+                            pathname: '/leaderboard',
+                            state: { from: `nav` }
+                        }} >Leaderboard</Nav.Link>
+                        
                         <Nav.Link as={Link} to="/add">Add</Nav.Link>
                         <Nav.Link onClick={(e) => handleLogoutRequest(e)}>Logout</Nav.Link>
                     </Nav>
