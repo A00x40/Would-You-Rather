@@ -2,6 +2,12 @@
 
 Final assessment project for Udacity's React & Redux course.
 
+## Project Setup
+
+* clone the Project `https://github.com/A00x40/Would-You-Rather.git`
+* install the dependencies `npm install`
+* Run the code `npm start`
+
 The `_DATA.js` file represents a fake database and methods that let you access the data.
 
 ## Data
